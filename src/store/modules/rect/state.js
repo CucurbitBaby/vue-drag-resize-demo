@@ -1,3 +1,5 @@
+import { nanoid } from "nanoid";
+
 export default {
     /*
         TODO
@@ -5,6 +7,9 @@ export default {
             text 属性是新增的 ✔
             
             动态组件 name
+                EditableText
+                UneditableText
+                Picture
 
             rects 中原有的属性，新增时需要计算 例如宽高..
 
@@ -14,11 +19,15 @@ export default {
 
             Tip 回显
 
-            
+            import {nanoid} from "nanoid";  nanoid()
+
+            isShow ✔
 
     */ 
     'rects': [
-        {
+        {   
+            // id: nanoid(),
+            isShow: true,
             'width': 200,
             'height': 150,
             'top': 10,
@@ -37,8 +46,10 @@ export default {
             'text': '我是标题 1'
         },
         {
-            'width': 200,
-            'height': 150,
+            // id: nanoid(),
+            isShow: true,
+            // 'width': 200,
+            // 'height': 150,
             'top': 170,
             'left': 220,
             'draggable': true,
@@ -56,6 +67,8 @@ export default {
             'text': '我是标题 2'
         },
         {
+            // id: nanoid(),
+            isShow: true,
             'width': 200,
             'height': 150,
             'top': 10,
@@ -74,6 +87,8 @@ export default {
             'text': '我是标题 3'
         },
         {
+            // id: nanoid(),
+            isShow: true,
             'width': 200,
             'height': 150,
             'top': 170,
@@ -91,5 +106,5 @@ export default {
             'active': false,
             'text': '我是标题 4'
         }
-    ]
+    ],
 };

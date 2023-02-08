@@ -1,6 +1,23 @@
 import types, {CHANGE_ZINDEX} from './mutation-types';
 
 export default {
+    addElement({commit, state}, { elem }) {
+        commit('pushElement', elem)
+    },
+     
+    removeElement({commit, state}, {id}) {
+        const newList = JSON.parse(JSON.stringify(state.rects))
+                .map((element,index) => {
+                    element.active = false
+                    if(index === id) {
+                        element.isShow = false
+                    }
+                    return element
+                })
+        
+        commit('setNewRects', newList)
+    },
+
     setActive({commit, state}, {id}) {
         for (let i = 0, l = state.rects.length; i < l; i++) {
             if (i === id) {

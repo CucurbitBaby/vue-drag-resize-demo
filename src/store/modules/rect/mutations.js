@@ -25,6 +25,13 @@ import {
 } from './mutation-types';
 
 export default {
+    
+    pushElement(state, elem) {
+        state.rects.push(elem)
+    },
+    setNewRects(state, newRects) {
+        state.rects = newRects
+    },
     [ENABLE_ACTIVE](state, id) {
         state.rects[id].active = true;
     },
