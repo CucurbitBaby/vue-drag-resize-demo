@@ -20,7 +20,7 @@
             border: '1px solid #000'
           }"
         >
-          <tinymce v-show="showTinyMCE" v-model="editorStr"  :width="'200px'" :height="'150px'" />
+          <tinymce v-model="editorStr"  :width="'200px'" :height="'150px'" />
         </div>
         
       <template v-for="(rect, index) in rects">
@@ -152,7 +152,7 @@ export default {
         left: 0,
         top: 0,
       },
-      showTinyMCE: false,
+      // showTinyMCE: false,
 
       editorStr: 'hhhhhhhhhhhhhhhhhhhhhhhhh'
     };
@@ -173,43 +173,120 @@ export default {
     activeRect() {
       return this.$store.getters["rect/getActive"];
     },
+    showTinyMCE() {
+      return this.rects.some(element => element.active)
+    }
   },
   methods: {
+    
     clickHandle(e) {
+      
+      // e.target.focus()
+      // console.log(e.target)
+
       // if (e.target.nodeName === "INPUT" || e.target.nodeName === "TEXTAREA") {
       //   e.target.focus();
       // }
-      console.log(e)
+
+
+      console.log('我先执行', e)
+
     },
     // 点击拖拽元素激活事件
     activateEv(index) {
+      console.log('我后执行', index)
 
-      // console.group("激活拖拽元素的 index => activateEv(index)");
-      // console.log(index);
-      // console.groupEnd();
+      console.group("激活拖拽元素的 index => activateEv(index)");
+      console.log(index);
       
 
       this.$store.dispatch("rect/setActive", { id: index });
+
+      // console.log(this.rects[this.activeRect]);
+      const { left, top, width, height } = this.rects[this.activeRect]
+      this.tinyMceObject.width = width
+      this.tinyMceObject.height = height
+      this.tinyMceObject.left = left
+      this.tinyMceObject.top = top
       
-      this.showTinyMCE = true
+      // this.rects[this.activeRect].showHtml = false
+      // if(this.activeRect != null) {
+     
+      // }
+      // this.$store.dispatch("rect/changeShowHtml", { id: index, showHtml: false });
+      // this.showTinyMCE = true
 
 
       // console.log('this.rects[index].showHtml', this.rects[index].showHtml)
+      console.groupEnd();
+
 
       // this.editorStr = this.rects[index].text
-      this.editorStr = '哈哈哈哈'+Math.random()*(10-1)+1
+      this.editorStr = '哈哈哈哈'
 
+
+      // this.resizeElement
+      // this.$nextTick(() => {
+      //   const width = document.querySelector('.tinymce-container').offsetWidth
+      //   const height = document.querySelector('.tinymce-container').offsetHeight
+      //   // console.log(width)
+      //   // console.log(height)
+      //   this.$store.dispatch("rect/resizeElement", { id: index, width, height });
+      // })
+      console.log('22222', this.editorStr)
     },
 
     // 点击其他，激活元素的失去激活事件
     deactivateEv(index) {
 
-      // console.group('失去激活元素的 index => deactivateEv(index)')
-      // console.log(index)
-      // console.groupEnd()
+      // let doubleClick = false
+
+      // if(index === this.activeRect) {
+      //   doubleClick = true
+      // }
+
+      console.group('失去激活元素的 index => deactivateEv(index)')
+      console.log(index)
+      console.groupEnd()
+
 
       // 未设置的活动
       this.$store.dispatch("rect/unsetActive", { id: index });
+      
+      // console.group('失去激活元素的后 当前激活元素')
+      // console.log(this.activeRect)
+      // console.groupEnd()
+
+
+
+
+
+
+      // if(this.activeRect == null) {
+      //   this.$store.dispatch("rect/changeShowHtml", { id: index, showHtml: false });
+      // } else {
+      //   this.$store.dispatch("rect/changeShowHtml", { id: index, showHtml: true });
+      // }
+
+      
+      // if(doubleClick) {
+      //   // console.log('this.activeRect', this.activeRect)
+      //   // console.log('index', index)
+      //   if(this.activeRect != null) {
+      //     this.$store.dispatch("rect/changeShowHtml", { id: this.activeRect, showHtml: false });
+      //   } else {
+      //     this.$store.dispatch("rect/changeShowHtml", { id: index, showHtml: true });
+      //   }
+        
+      // } else {
+      //   this.$store.dispatch("rect/changeShowHtml", { id: index, showHtml: true });
+      // }
+      
+
+      // console.log(this.rects[index].showHtml)
+      // console.groupEnd()
+
+      // console.log(this.activeRect)
     },
 
     // 每当拖动组件时调用
@@ -230,23 +307,25 @@ export default {
         height: newRect.height,
       });
       
-      this.showTinyMCE = false
+      // this.showTinyMCE = false
     },
 
     dragStop(newRect, index) {
-      //  tip 同步 tinyMCE 位置
       this.tinyMceObject.top = newRect.top
       this.tinyMceObject.left = newRect.left
 
-      this.showTinyMCE = true
+      console.log(newRect.top)
+      console.log(newRect.left)
+
+      // this.showTinyMCE = true
     },
 
     // 每当组件调整大小时调用
     changeSize(newRect, index) {
-      // console.group("调整大小 => changeSize(newRect, index) ");
-      // console.log(newRect);
-      // console.log(index);
-      // console.groupEnd();
+      console.group("调整大小 => changeSize(newRect, index) ");
+      console.log(newRect);
+      console.log(index);
+      console.groupEnd();
 
       this.$store.dispatch("rect/setTop", { id: index, top: newRect.top });
       this.$store.dispatch("rect/setLeft", { id: index, left: newRect.left });
@@ -259,7 +338,7 @@ export default {
         height: newRect.height,
       });
 
-      // tip 同步 tinyMCE 宽高
+
       this.tinyMceObject.width = newRect.width
       this.tinyMceObject.height = newRect.height
 

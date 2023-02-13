@@ -1,6 +1,14 @@
 import types, {CHANGE_ZINDEX} from './mutation-types';
 
 export default {
+
+    
+    resizeElement({commit, state}, obj) {
+        // alert(JSON.stringify(obj, null, 4))
+        commit('resizeElement', obj )
+    },
+
+
     changeShowHtml({commit, state}, { id, showHtml }) {
         commit('changeShowHtml', { id, showHtml })
     },

@@ -25,6 +25,10 @@ import {
 } from './mutation-types';
 
 export default {
+    resizeElement(state,  { id, width, height }) {
+        state.rects[id].width = width;
+        state.rects[id].height = height;
+    },
     changeShowHtml(state, { id, showHtml }) {
         state.rects[id].showHtml = showHtml;
     },
