@@ -20,7 +20,7 @@
             border: '1px solid #000'
           }"
         >
-          <tinymce v-show="showTinyMCE" v-model="editorStr"  :width="'200px'" :height="'150px'" />
+          <tinymce v-show="showTinyMCE" :value="editorStr" @input="handleChangeEditValue" :width="'200px'" :height="'150px'" />
         </div>
         
       <template v-for="(rect, index) in rects">
@@ -270,6 +270,11 @@ export default {
     resizestop(newRect, index) {
       
     },
+
+    handleChangeEditValue(val) {
+      this.editorStr = val
+      console.log(this.activeRect)
+    }
   },
 };
 </script>
