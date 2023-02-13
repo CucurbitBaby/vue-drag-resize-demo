@@ -25,7 +25,9 @@ import {
 } from './mutation-types';
 
 export default {
-    
+    changeShowHtml(state, { id, showHtml }) {
+        state.rects[id].showHtml = showHtml;
+    },
     pushElement(state, elem) {
         state.rects.push(elem)
     },

@@ -3,32 +3,22 @@
     <div class="list" id="list">
       
   
-       <!-- <div
-          class="test"
-          :style="{
-            position: 'absolute',
-            width: rect.width+'px',
-            height: rect.height+'px',
-            left: rect.left+'px',
-            top: rect.top+'px'
-          }"
-        >
-          <tinymce v-model="testStr" :height="300" :key="index" />
-        </div> -->
 
-        <!-- <div
+        <div
+          v-if="showTinyMCE"
           class="test"
           :style="{
             position: 'absolute',
-            width: testObject.width+'px',
-            height: testObject.height+'px',
-            left: testObject.left+'px',
-            top: testObject.top+'px',
-            'z-index': 10
+            width: tinyMceObject.width+'px',
+            height: tinyMceObject.height+'px',
+            left: tinyMceObject.left+'px',
+            top: tinyMceObject.top+'px',
+            'z-index': 10,
+            border: '1px solid #000'
           }"
         >
-          <tinymce v-model="testStr"  :width="'200px'" :height="'150px'" />
-        </div> -->
+          <tinymce v-model="testStr2"  :width="'200px'" :height="'150px'" />
+        </div>
         
       <template v-for="(rect, index) in rects">
           <!-- :isDraggable="rect.draggable" -->
@@ -68,7 +58,7 @@
               </h1>
            
           </div> -->
-          <div v-if="rect.showHtml" v-html="testStr"></div>
+          <div v-if="rect.showHtml" class="test-class" v-html="testStr" :style="{ backgroundColor: rect.color }"></div>
         </VueDragResize>
       </template>
     </div>
@@ -140,14 +130,16 @@ export default {
       listWidth: 0,
       listHeight: 0,
       testStr: '你好世界你好世界你好世界你好世界你好世界你好世界你好世界你好世界你好世界你好世界你好世界你好世界你好世界',
+      testStr2: '哈哈哈',
 
-      testObject: {
+      tinyMceObject: {
         position: 'absolute',
         width: 0,
         height: 0,
         left: 0,
         top: 0,
-      }
+      },
+      showTinyMCE: false
     };
   },
   mounted() {
@@ -179,28 +171,46 @@ export default {
     activateEv(index) {
       console.group("激活拖拽元素的 index => activateEv(index)");
       console.log(index);
-      console.groupEnd();
+      
 
       this.$store.dispatch("rect/setActive", { id: index });
-      console.log(this.rects[this.activeRect]);
-      const { left, top, width, height } = this.rects[this.activeRect]
 
-      this.testObject.width = width
-      this.testObject.height = height
-      this.testObject.left = left
-      this.testObject.top = top
+      // console.log(this.rects[this.activeRect]);
+      const { left, top, width, height } = this.rects[this.activeRect]
+      this.tinyMceObject.width = width
+      this.tinyMceObject.height = height
+      this.tinyMceObject.left = left
+      this.tinyMceObject.top = top
       
-      this.rects[this.activeRect].showHtml = false
+      // this.rects[this.activeRect].showHtml = false
+      if(this.activeRect != null) {
+        this.$store.dispatch("rect/changeShowHtml", { id: this.activeRect, showHtml: false });
+        this.showTinyMCE = true
+      }
+
+
+      console.log(this.rects[index].showHtml)
+      console.groupEnd();
     },
 
     // 点击其他，激活元素的失去激活事件
     deactivateEv(index) {
-      // console.group('失去激活元素的 index => deactivateEv(index)')
-      // console.log(index)
-      // console.groupEnd()
+      console.group('失去激活元素的 index => deactivateEv(index)')
+      console.log(index)
+
+
 
       // 未设置的活动
       this.$store.dispatch("rect/unsetActive", { id: index });
+      
+      // console.group('失去激活元素的后 当前激活元素')
+      // console.log(this.activeRect)
+      // console.groupEnd()
+
+      this.$store.dispatch("rect/changeShowHtml", { id: index, showHtml: true });
+
+      console.log(this.rects[index].showHtml)
+      console.groupEnd()
     },
 
     // 每当拖动组件时调用

@@ -1,6 +1,10 @@
 import types, {CHANGE_ZINDEX} from './mutation-types';
 
 export default {
+    changeShowHtml({commit, state}, { id, showHtml }) {
+        commit('changeShowHtml', { id, showHtml })
+    },
+
     addElement({commit, state}, { elem }) {
         commit('pushElement', elem)
     },

@@ -104,6 +104,7 @@ export default {
     initTinymce() {
       const _this = this
       window.tinymce.init({
+        auto_focus: true,
         // language: this.language,
         selector: `#${this.tinymceId}`,
         inline: true,
