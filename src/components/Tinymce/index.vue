@@ -41,7 +41,8 @@ export default {
     height: {
       type: [Number, String],
       required: false,
-      default: 360
+      // default: 360
+      default: '100%'
     },
     width: {
       type: [Number, String],
@@ -116,6 +117,8 @@ export default {
 
         menubar: false,
         // statusbar: false,
+
+        resize: 'both',
 
         plugins: plugins,
         end_container_on_empty_block: true,

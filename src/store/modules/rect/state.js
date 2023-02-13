@@ -27,7 +27,9 @@ export default {
     'rects': [
         {   
             // id: nanoid(),
+            isShowEditor: false,
             isShow: true,
+            showHtml: true,
             'width': 200,
             'height': 150,
             'top': 10,
@@ -47,9 +49,11 @@ export default {
         },
         {
             // id: nanoid(),
+            isShowEditor: false,
             isShow: true,
-            // 'width': 200,
-            // 'height': 150,
+            showHtml: true,
+            'width': 200,
+            'height': 150,
             'top': 170,
             'left': 220,
             'draggable': true,
@@ -68,7 +72,9 @@ export default {
         },
         {
             // id: nanoid(),
+            isShowEditor: false,
             isShow: true,
+            showHtml: true,
             'width': 200,
             'height': 150,
             'top': 10,
@@ -88,7 +94,9 @@ export default {
         },
         {
             // id: nanoid(),
+            isShowEditor: false,
             isShow: true,
+            showHtml: true,
             'width': 200,
             'height': 150,
             'top': 170,
@@ -101,7 +109,8 @@ export default {
             'parentLim': true,
             'snapToGrid': false,
             'aspectRatio': false,
-            'zIndex': 3,
+            // 'zIndex': 3,
+            'zIndex': 1,
             'color': '#81D4FA',
             'active': false,
             'text': '我是标题 4'

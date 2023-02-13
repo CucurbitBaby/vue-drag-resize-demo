@@ -3,15 +3,10 @@
     <div class="list" id="list">
       
   
-          
-        
-      <template v-for="(rect, index) in rects">
-        <div 
+       <!-- <div
           class="test"
-          :key="index"
           :style="{
             position: 'absolute',
-            'z-index': 1,
             width: rect.width+'px',
             height: rect.height+'px',
             left: rect.left+'px',
@@ -19,7 +14,23 @@
           }"
         >
           <tinymce v-model="testStr" :height="300" :key="index" />
-        </div>
+        </div> -->
+
+        <!-- <div
+          class="test"
+          :style="{
+            position: 'absolute',
+            width: testObject.width+'px',
+            height: testObject.height+'px',
+            left: testObject.left+'px',
+            top: testObject.top+'px',
+            'z-index': 10
+          }"
+        >
+          <tinymce v-model="testStr"  :width="'200px'" :height="'150px'" />
+        </div> -->
+        
+      <template v-for="(rect, index) in rects">
           <!-- :isDraggable="rect.draggable" -->
         <VueDragResize
           v-if="rect.isShow"
@@ -50,15 +61,14 @@
           <!-- <textbar :index="index" /> -->
           <!-- <div class="filler" :style="{ backgroundColor: rect.color }">
             <h1>
-              text: {{ rect.text }} <br /><br />
-              z-index: {{ rect.zIndex }}<br /><br />
-              left: {{ rect.left }}, top: {{ rect.top }}
-            </h1>
-    
+                text: {{ rect.text }} <br /><br />
+                z-index: {{ rect.zIndex }}<br /><br />
+                left: {{ rect.left }}, top: {{ rect.top }}<br /><br />
+                width: {{ rect.width }}, height: {{ rect.height }}<br /><br />
+              </h1>
+           
           </div> -->
-
-     
-      
+          <div v-if="rect.showHtml" v-html="testStr"></div>
         </VueDragResize>
       </template>
     </div>
@@ -129,7 +139,15 @@ export default {
     return {
       listWidth: 0,
       listHeight: 0,
-      testStr: '你好世界'
+      testStr: '你好世界你好世界你好世界你好世界你好世界你好世界你好世界你好世界你好世界你好世界你好世界你好世界你好世界',
+
+      testObject: {
+        position: 'absolute',
+        width: 0,
+        height: 0,
+        left: 0,
+        top: 0,
+      }
     };
   },
   mounted() {
@@ -165,6 +183,14 @@ export default {
 
       this.$store.dispatch("rect/setActive", { id: index });
       console.log(this.rects[this.activeRect]);
+      const { left, top, width, height } = this.rects[this.activeRect]
+
+      this.testObject.width = width
+      this.testObject.height = height
+      this.testObject.left = left
+      this.testObject.top = top
+      
+      this.rects[this.activeRect].showHtml = false
     },
 
     // 点击其他，激活元素的失去激活事件

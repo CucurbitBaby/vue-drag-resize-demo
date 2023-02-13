@@ -14,7 +14,8 @@ export default {
   },
   methods: {
     handleClickRemoveBtn() {
-      if(this.activeRect != null) {
+        alert(this.activeRect)
+        if(this.activeRect != null) {
         this.$store.dispatch('rect/removeElement', { id: this.activeRect });
       }
     },
