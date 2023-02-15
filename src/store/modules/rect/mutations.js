@@ -25,6 +25,11 @@ import {
 } from './mutation-types';
 
 export default {
+    
+    chnageText(state, { id, text }) {
+        state.rects[id].text = text
+    },
+
     resizeElement(state,  { id, width, height }) {
         state.rects[id].width = width;
         state.rects[id].height = height;
@@ -43,6 +48,7 @@ export default {
     },
     [DISABLE_ACTIVE](state, id) {
         state.rects[id].active = false;
+        // console.log(state.rects.map(e => e.active))
     },
 
     [ENABLE_ASPECT](state, id) {

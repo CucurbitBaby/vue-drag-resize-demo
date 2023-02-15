@@ -1,6 +1,6 @@
 <template>
   <div :class="{fullscreen:fullscreen}" class="tinymce-container" :style="{width:containerWidth}">
-    <div :id="tinymceId" class="tinymce-textarea"></div>
+    <div :id="tinymceId" class="tinymce-textarea" @click="handleClick"></div>
   </div>
 </template>
 
@@ -70,10 +70,13 @@ export default {
   },
   watch: {
     value(val) {
-      if (!this.hasChange && this.hasInit) {
-        this.$nextTick(() =>
-          window.tinymce.get(this.tinymceId).setContent(val || ''))
+      // if (!this.hasChange && this.hasInit) {
+      //   this.$nextTick(() => window.tinymce.get(this.tinymceId).setContent(val || ''))
+      // }
+      if (this.hasInit) {
+        this.$nextTick(() => window.tinymce.get(this.tinymceId).setContent(val || ''))
       }
+      
     }
   },
   mounted() {
@@ -104,7 +107,7 @@ export default {
     initTinymce() {
       const _this = this
       window.tinymce.init({
-        auto_focus: true,
+        // auto_focus: true,
         // language: this.language,
         selector: `#${this.tinymceId}`,
         inline: true,
@@ -168,6 +171,12 @@ export default {
     },
     getContent() {
       window.tinymce.get(this.tinymceId).getContent()
+    },
+    handleClick(e) {
+      this.$emit('click', {
+        x: e.x,
+        y: e.y
+      })
     }
   }
 }

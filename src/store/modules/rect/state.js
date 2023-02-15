@@ -32,6 +32,7 @@ export default {
             showHtml: true,
             'width': 200,
             'height': 150,
+           
             'top': 10,
             'left': 10,
             'draggable': true,
@@ -43,7 +44,7 @@ export default {
             'snapToGrid': false,
             'aspectRatio': false,
             'zIndex': 1,
-            'color': '#EF9A9A',
+            'color': '#E6C27A',
             'active': false,
             'text': '我是标题 1111111111111111111111111111111111111111111111111111111111111111111'
         },
@@ -54,7 +55,8 @@ export default {
             showHtml: true,
             'width': 200,
             'height': 150,
-            'top': 170,
+           
+            'top': 10,
             'left': 220,
             'draggable': true,
             'resizable': true,
@@ -67,7 +69,6 @@ export default {
             'zIndex': 1,
             'color': '#E6C27A',
             'active': false,
-            'class': 'box-shaddow',
             'text': '我是标题 222222222222222222222222222222222222222222222222222222222222222222'
         },
         {
@@ -77,8 +78,8 @@ export default {
             showHtml: true,
             'width': 200,
             'height': 150,
-            'top': 10,
-            'left': 220,
+            'top': 170,
+            'left': 10,
             'draggable': true,
             'resizable': true,
             'minw': 10,
@@ -87,7 +88,7 @@ export default {
             'parentLim': true,
             'snapToGrid': false,
             'aspectRatio': false,
-            'zIndex': 2,
+            'zIndex': 1,
             'color': '#AED581',
             'active': false,
             'text': '我是标题 33333333333333333333333333333333333333333333333333333333333333333333'
@@ -99,8 +100,9 @@ export default {
             showHtml: true,
             'width': 200,
             'height': 150,
+        
             'top': 170,
-            'left': 10,
+            'left': 220,
             'draggable': true,
             'resizable': true,
             'minw': 10,

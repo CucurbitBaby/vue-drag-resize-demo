@@ -2,18 +2,27 @@ import types, {CHANGE_ZINDEX} from './mutation-types';
 
 export default {
 
-    
-    resizeElement({commit, state}, obj) {
+    chnageText({commit}, { id, text }) {
+        // console.group('actions chnageText')
+        // console.log(id)
+        // console.log(text)
+        // console.groupEnd()
+
+
+        commit('chnageText', { id, text })
+    },
+
+    resizeElement({commit}, obj) {
         // alert(JSON.stringify(obj, null, 4))
         commit('resizeElement', obj )
     },
 
 
-    changeShowHtml({commit, state}, { id, showHtml }) {
+    changeShowHtml({commit}, { id, showHtml }) {
         commit('changeShowHtml', { id, showHtml })
     },
 
-    addElement({commit, state}, { elem }) {
+    addElement({commit}, { elem }) {
         commit('pushElement', elem)
     },
      
