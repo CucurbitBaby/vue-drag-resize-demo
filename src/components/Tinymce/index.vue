@@ -73,8 +73,18 @@ export default {
       // if (!this.hasChange && this.hasInit) {
       //   this.$nextTick(() => window.tinymce.get(this.tinymceId).setContent(val || ''))
       // }
+
+
+
       if (this.hasInit) {
-        this.$nextTick(() => window.tinymce.get(this.tinymceId).setContent(val || ''))
+
+        this.$nextTick(() => {
+
+          window.tinymce.get(this.tinymceId).setContent(val || '')
+          window.tinymce.activeEditor.selection.select(window.tinymce.activeEditor.getBody(), true)
+          window.tinymce.activeEditor.selection.collapse(false)
+        })
+
       }
       
     }
@@ -177,7 +187,7 @@ export default {
         x: e.x,
         y: e.y
       })
-    }
+    },
   }
 }
 </script>

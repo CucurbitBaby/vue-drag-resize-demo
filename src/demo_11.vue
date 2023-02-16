@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <!-- @mouseover="handleMouseOverList" @click="handleClickList" -->
     <div class="list" id="list"  @click="handleClickList">
       <div style="position: absolute; left: 10px; top: 400px">
         activeRect: {{ activeRect }}
@@ -222,6 +223,11 @@ export default {
         return r
       })
 
+      // console.group('.tinymce-box(tinyMCE 父元素div) 点击事件')
+      // console.log(ev)
+      // console.log(result)
+      // console.groupEnd()
+
       if (result && id != null) {
         this.$store.dispatch('rect/setActive', { id })
       }
@@ -253,6 +259,9 @@ export default {
 
     // 点击拖拽元素激活事件
     activateEv(index) {
+      console.group('激活:' + index)
+      console.groupEnd()
+
       const { left, top } = this.rects[index]
       this.beforeDragLeft = left
       this.beforeDragTop = top
@@ -268,8 +277,17 @@ export default {
 
     // 点击其他，激活元素的失去激活事件
     deactivateEv(index) {
+      console.group('失焦:' + index)
+      console.groupEnd()
+
       // 未设置的活动
+
       this.$store.dispatch('rect/unsetActive', { id: index })
+      
+      // const result = this.rects.some(element => this.isInner(element, this.pointList))
+      // if(!result) {
+      //   this.showTinyMCE = false
+      // }
     },
 
     // 每当拖动组件时调用
